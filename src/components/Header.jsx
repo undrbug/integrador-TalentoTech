@@ -5,7 +5,7 @@ const Header = () => (
   <header>
     <Navbar bg="dark" variant="dark" expand="lg" className='radius'>
       <Container>
-        <Navbar.Brand as={Link} to="/">Soltec(logo)</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">(logo)</Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
           <Nav className="justify-content-end flex-grow-1">

@@ -24,10 +24,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<Shop />} />
           {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
-          {/* <Route path="/checkout" element={<Checkout />} /> */}          
           <Route path="/contact" element={<Contact />} />
           {/* <Route path="/about" element={<About />} /> */}
           {/* ruta privada, falta implementar */}
+          {/* <Route path="/checkout" element={<Checkout />} /> */}          
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       <Footer />
