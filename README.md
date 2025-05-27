@@ -1,12 +1,49 @@
-# React + Vite
+# Carrito TalentoTech
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# # Requerimiento #1: Crear una funcionalidad básica para el manejo de un carrito de compras.
 
-Currently, two official plugins are available:
+- Crear un componente para listar los productos disponibles. (ok)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Usar el hook useState para manejar el estado del carrito. (ok)
 
-## Expanding the ESLint configuration
+- Implementar un evento de clic que permita agregar productos al carrito. (ok)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Mostrar el carrito con los productos seleccionados en otro componente. (ok)
+
+- Crear un Layout del eCommerce (ok)
+
+
+## Requerimiento #2: Conectar la aplicación a una API que provea información sobre los productos.
+
+- Integración con una API (ok)
+
+- Estado de carga y errores (ok)
+
+- Gestión del estado con useState (ok)
+
+- Actualizar el diseño del eCommerce (+/-)
+
+- Manejo de efectos secundarios con useEffect (ok)
+
+- Ampliación del carrito (falta implementar)
+
+# # Requerimiento #3: Integración de rutas
+
+- Implementación de rutas (ok)
+
+- Estado de carga y manejo de errores (falta implementar)
+
+- Crear componente para cada sección (ok)
+
+- Navegar entre productos (falta implementar)
+
+# # Requerimiento #4: Implementar rutas dinámicas y protegidas
+
+- Rutas Dinámicas (falta implementar)
+
+- Interactividad
+
+- Rutas Protegidas (falta implementar)
+
+- Navbar (ok)
+
