@@ -1,9 +1,11 @@
 import { Card, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useProductos } from './ProductContext';
+import { useCart } from './CartContext';
 
-const CardComponent = ({ onAddToCart }) => {
+const CardComponent = () => {
     const { productos, loading } = useProductos();
+    const { onAddToCart } = useCart();
     const navigate = useNavigate();
 
     const handleDetails = (id) => {

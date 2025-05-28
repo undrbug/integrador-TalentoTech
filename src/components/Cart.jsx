@@ -1,15 +1,18 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useCart } from './CartContext';
 
-const Cart = ({ items, setItems }) => {
-    const hasProduct = items.length > 0;
+const Cart = () => {
+    const { carrito, onAddToCart, setCarrito } = useCart();
 
-    const total = items.reduce((acc, item) => acc + item.price, 0);
+    const hasProduct = carrito.length > 0;
+
+    const total = carrito.reduce((acc, item) => acc + item.price, 0);
 
     const removeFromCart = (product) => {
-        setItems((prevItems) => prevItems.filter((item) => item.id !== product.id));
+        setCarrito((prevItems) => prevItems.filter((item) => item.id !== product.id));
     };
 
-    const clearCart = () => setItems([]);
+    const clearCart = () => setCarrito([]);
 
     const handlePurchase = () => {
         alert(`Compra realizada por un total de $${total}`);
@@ -25,7 +28,7 @@ const Cart = ({ items, setItems }) => {
                             {hasProduct ? (
                                 <>
                                     <h5>Productos en el carrito:</h5>
-                                    {items.map((item, index) => (
+                                    {carrito.map((item, index) => (
                                         <div key={index} className="d-flex justify-content-between align-items-center">
                                             <span>{item.title} - ${item.price}</span>
                                             <Button variant="danger" onClick={() => removeFromCart(item)}>Eliminar</Button>
