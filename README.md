@@ -25,25 +25,25 @@
 
 - Manejo de efectos secundarios con useEffect (ok)
 
-- Ampliación del carrito (falta implementar)
+- Ampliación del carrito (ok)
 
 # # Requerimiento #3: Integración de rutas
 
 - Implementación de rutas (ok)
 
-- Estado de carga y manejo de errores (falta implementar)
+- Estado de carga y manejo de errores (ok)
 
 - Crear componente para cada sección (ok)
 
-- Navegar entre productos (falta implementar)
+- Navegar entre productos (ok)
 
 # # Requerimiento #4: Implementar rutas dinámicas y protegidas
 
-- Rutas Dinámicas (falta implementar)
+- Rutas Dinámicas (ok)
 
-- Interactividad
+- Interactividad con rutas (ok)
 
 - Rutas Protegidas (falta implementar)
+- implementar context API para login y logout
 
 - Navbar (ok)
-
