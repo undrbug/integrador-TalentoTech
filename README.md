@@ -43,7 +43,9 @@
 
 - Interactividad con rutas (ok)
 
-- Rutas Protegidas (falta implementar)
-- implementar context API para login y logout
-
 - Navbar (ok)
+
+- Rutas Protegidas (ok)
+- implementar context API para login y logout (ok)
+
+- Implementaste la interactividad en el Navbar para indicar la sección activa
