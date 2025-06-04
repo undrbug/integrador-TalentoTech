@@ -8,6 +8,8 @@
 
 - Implementar un evento de clic que permita agregar productos al carrito. (ok)
 
+- Al agregar productos que ya estan en el carrito, solo se incrementa la cantidad. (ok)
+
 - Mostrar el carrito con los productos seleccionados en otro componente. (ok)
 
 - Crear un Layout del eCommerce (ok)
@@ -46,6 +48,7 @@
 - Navbar (ok)
 
 - Rutas Protegidas (ok)
+
 - implementar context API para login y logout (ok)
 
 - Implementaste la interactividad en el Navbar para indicar la sección activa
