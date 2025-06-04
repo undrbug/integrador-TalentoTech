@@ -1,5 +1,6 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useCart } from './CartContext';
+import { FaTrash } from 'react-icons/fa';
 
 const Cart = () => {
     const { carrito, onAddToCart, setCarrito } = useCart();
@@ -28,13 +29,35 @@ const Cart = () => {
                             {hasProduct ? (
                                 <>
                                     <h5>Productos en el carrito:</h5>
-                                    {carrito.map((item, index) => (
-                                        <div key={index} className="d-flex justify-content-between align-items-center">
-                                            <span>{item.title} - ${item.price}</span>
-                                            <Button variant="danger" onClick={() => removeFromCart(item)}>Eliminar</Button>
-                                        </div>
-                                    ))}
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th>Subtotal</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {carrito.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{item.title}</td>
+                                                    <td>${item.price.toFixed(2)}</td>
+                                                    <td>{item.quantity}</td>
+                                                    <td>${(item.price * item.quantity).toFixed(2)}</td>
+                                                    <td>
+                                                        <Button variant="danger" onClick={() => removeFromCart(item)}>
+                                                            <FaTrash size={20} />
+                                                        </Button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                    <hr />
                                     <h6>Total: ${total.toFixed(2)}</h6>
+                                    <hr />
                                     <Button variant="secondary" onClick={clearCart}>Vaciar Carrito</Button>{' '}
                                     <Button variant="primary" onClick={handlePurchase}>Finalizar Compra</Button>
                                 </>
@@ -45,7 +68,7 @@ const Cart = () => {
                     </Card>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 };
 
