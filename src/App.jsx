@@ -13,6 +13,7 @@ import { CartProvider } from './components/CartContext.jsx';
 import ProductDetail from './components/ProductDetail.jsx';
 import { AuthProvider } from './components/AuthContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import ProductAdd from './components/ProductAdd.jsx';
 import './App.css'
 
 function App() {
@@ -35,6 +36,11 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
+              <Route path="/add-product" element={
+                <PrivateRoute>
+                  <ProductAdd />
+                </PrivateRoute>
+              } />
               {/* <Route path="/checkout" element={<Checkout />} /> */}
               <Route path="/dashboard" element={
                 <PrivateRoute>
