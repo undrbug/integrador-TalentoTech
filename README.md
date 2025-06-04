@@ -10,6 +10,8 @@
 
 - Al agregar productos que ya estan en el carrito, solo se incrementa la cantidad. (ok)
 
+- fix total del carrito. Antes no mostraba el total incluyendo la cantidad de 1 producto
+
 - Mostrar el carrito con los productos seleccionados en otro componente. (ok)
 
 - Crear un Layout del eCommerce (ok)
