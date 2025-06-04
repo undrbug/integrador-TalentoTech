@@ -40,6 +40,11 @@
   padding: 10px;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 .footer {
   margin-top: 20rem;
   padding: 1rem;
