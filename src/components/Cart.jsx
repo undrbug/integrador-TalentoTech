@@ -7,8 +7,6 @@ const Cart = () => {
 
     const hasProduct = carrito.length > 0;
 
-    const total = carrito.reduce((acc, item) => acc + item.price, 0);
-
     const removeFromCart = (product) => {
         setCarrito((prevItems) => prevItems.filter((item) => item.id !== product.id));
     };
@@ -43,7 +41,7 @@ const Cart = () => {
                                             {carrito.map((item, index) => (
                                                 <tr key={index}>
                                                     <td>{item.title}</td>
-                                                    <td>${item.price.toFixed(2)}</td>
+                                                    <td>${item.price}</td>
                                                     <td>{item.quantity}</td>
                                                     <td>${(item.price * item.quantity).toFixed(2)}</td>
                                                     <td>
@@ -56,7 +54,11 @@ const Cart = () => {
                                         </tbody>
                                     </table>
                                     <hr />
-                                    <h6>Total: ${total.toFixed(2)}</h6>
+                                    <h6>Total: ${(() => {
+                                        let total = carrito.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                                        return total.toFixed(2);
+                                    })()}
+                                    </h6>
                                     <hr />
                                     <Button variant="secondary" onClick={clearCart}>Vaciar Carrito</Button>{' '}
                                     <Button variant="primary" onClick={handlePurchase}>Finalizar Compra</Button>

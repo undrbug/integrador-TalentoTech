@@ -35,7 +35,7 @@ const CardComponent = () => {
                                         <Card.Img className='card-img' variant="top" src={producto.image} />
                                         <Card.Body>
                                             <Card.Title className='card-title'>{producto.title}</Card.Title>
-                                            <Card.Text>{"usd " + producto.price}</Card.Text>
+                                            <Card.Text>{`usd ${producto.price}`}</Card.Text>
                                         </Card.Body>
                                         <Button
                                             className='btn-agregar'
