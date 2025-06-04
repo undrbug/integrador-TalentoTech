@@ -6,6 +6,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // leer del localStorage
   useEffect(() => {
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     if (savedUser) {
       setUser(savedUser);
     }
+    setLoading(false);
   }, []);
 
   const login = (email, password) => {
@@ -42,7 +44,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout, register }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      isAuthenticated: !!user, 
+      loading,
+      login, 
+      logout, 
+      register 
+      }}>
       {children}
     </AuthContext.Provider>
   );
