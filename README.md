@@ -53,7 +53,8 @@
 
 - implementar context API para login y logout (ok)
 
+- Revisar tema del token q no esta implementado (ok)
+
 - Implementaste la interactividad en el Navbar para indicar la sección activa
 - implementar las ofertas solo para los clientes logueados
 - implementar rol del usuario
-- Revisar tema del token q no esta implementado
