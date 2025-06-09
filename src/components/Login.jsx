@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 const Login = () => {
   const { login } = useAuth();
@@ -20,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <Container className="container d-flex flex-column align-items-center justify-content-center min-vh-60">
       <h1>Iniciar Sesión</h1>
       <form className="m-4 p-4" onSubmit={handleSubmit}>
         {error && <p className="text-danger">{error}</p>}
@@ -35,7 +36,7 @@ const Login = () => {
         <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
       </form>
         <p>¿No tenés una cuenta? <Link to="/register">Regístrate aquí</Link></p>
-    </div>
+    </Container>
   );
 };
 

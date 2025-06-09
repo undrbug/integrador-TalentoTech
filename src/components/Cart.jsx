@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Table, Row, Col, Card, Button } from 'react-bootstrap';
 import { useCart } from './CartContext';
 import { FaTrash } from 'react-icons/fa';
 
@@ -27,7 +27,7 @@ const Cart = () => {
                             {hasProduct ? (
                                 <>
                                     <h5>Productos en el carrito:</h5>
-                                    <table className="table table-striped">
+                                    <Table striped bordered hover responsive>
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>
@@ -52,7 +52,7 @@ const Cart = () => {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table>
+                                    </Table>
                                     <hr />
                                     <h6>Total: ${(() => {
                                         let total = carrito.reduce((acc, item) => acc + (item.price * item.quantity), 0);

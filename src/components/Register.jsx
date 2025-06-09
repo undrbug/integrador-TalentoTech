@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 const Register = () => {
   const { register } = useAuth();
@@ -25,7 +26,7 @@ const Register = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <Container className="container d-flex flex-column align-items-center justify-content-center min-vh-60">
       <h1>Registro</h1>
       <form className="m-4 p-4" onSubmit={handleSubmit}>
         {error && <p className="text-danger">{error}</p>}
@@ -43,7 +44,7 @@ const Register = () => {
         </div>
         <button type="submit" className="btn btn-primary">Registrarse</button>
       </form>
-    </div>
+    </Container>
   );
 };
 
