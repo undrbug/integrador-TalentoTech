@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useProductos } from './ProductContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 const ProductAdd = () => {
 
-    const { productos } = useProductos();
+    const { productos, setProductos } = useProductos();
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     const handleRedirect = (ruta) => {
@@ -44,7 +47,7 @@ const ProductAdd = () => {
     const addProduct = (product) => {
         const newId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
         const newProduct = { id: newId, ...product };
-        productos.push(newProduct);
+        setProductos([...productos, newProduct]);
         console.log('Producto agregado:', newProduct);
         setNewProduct({
             title: '',
@@ -59,41 +62,58 @@ const ProductAdd = () => {
         if (validForm()) {
             addProduct(newProduct);
         }
-        handleRedirect('/shop');
     };
 
     return (
-        <div>
+        <Container className="container d-flex flex-column align-items-center justify-content-center">
             <h2>Agregar Producto</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Título"
-                    value={newProduct.title}
-                    onChange={handleChange}
-                />
+            <Form onSubmit={handleSubmit} className="">
+                <Form.Group controlId="formTitle" className="mt-3 mb-3">
+                    <Form.Control
+                        type="text"
+                        name="title"
+                        minLength={10}
+                        maxLength={50}
+                        required
+                        autoFocus
+                        placeholder="Título"
+                        value={newProduct.title}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
                 {errors.title && <p className="error">{errors.title}</p>}
-                <input
-                    type="number"
-                    name="price"
-                    placeholder="Precio"
-                    min="0"
-                    step="0.01"
-                    value={newProduct.price}
-                    onChange={handleChange}
-                />
+                <Form.Group controlId="formPrice" className="mb-3">
+                    <Form.Control
+                        type="number"
+                        name="price"
+                        placeholder="Precio"
+                        min="0"
+                        step="0.50"
+                        required
+                        value={newProduct.price}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
                 {errors.price && <p className="error">{errors.price}</p>}
-                <textarea
-                    name="description"
-                    placeholder="Descripción"
-                    value={newProduct.description}
-                    onChange={handleChange}
-                />
+                <Form.Group controlId="formDescription" className="mb-3">
+                    <Form.Control
+                        as="textarea"
+                        name="description"
+                        placeholder="Descripción"
+                        minLength={10}
+                        maxLength={200}
+                        required
+                        rows="4"
+                        value={newProduct.description}
+                        onChange={handleChange}
+                    />
+                </Form.Group>
                 {errors.description && <p className="error">{errors.description}</p>}
-                <button type="submit">Agregar Producto</button>
-            </form>
-        </div>
+                <div className="d-flex justify-content-center m-3 ">
+                    <Button type="submit">Agregar Producto</Button>
+                </div>
+            </Form>
+        </Container>
     );
 }
 
