@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './components/Home.jsx'
@@ -30,16 +30,19 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               {/* <Route path="/deals" element={<Deals />} /> */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+
+              <Route path="/login" element={
+                !localStorage.getItem('token') ? <Login /> : <Navigate to="/shop" />
+              } />
+              <Route path="/register" element={
+                !localStorage.getItem('token') ? <Register /> : <Navigate to="/login" />
+              } />
               <Route path="/shop" element={<Shop />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
               <Route path="/add-product" element={
-                <PrivateRoute>
-                  <ProductAdd />
-                </PrivateRoute>
+                  localStorage.getItem('token') ? <ProductAdd /> : <Navigate to="/login" />
               } />
               {/* <Route path="/checkout" element={<Checkout />} /> */}
               <Route path="/dashboard" element={
