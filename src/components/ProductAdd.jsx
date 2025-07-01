@@ -49,11 +49,11 @@ const ProductAdd = () => {
         const newProduct = { id: newId, ...product };
         setProductos([...productos, newProduct]);
         console.log('Producto agregado:', newProduct);
-        setNewProduct({
-            title: '',
-            price: '',
-            description: ''
-        });
+        // setNewProduct({
+        //     title: '',
+        //     price: '',
+        //     description: ''
+        // });
         
     };
 
