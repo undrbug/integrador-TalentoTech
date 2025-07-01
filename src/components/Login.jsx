@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
 
 const Login = () => {
   const { login } = useAuth();
@@ -10,32 +10,54 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = login(email, password);
-    if (success) {
-      navigate('/');
-    } else {
-      setError('Credenciales incorrectas');
+    setError(''); 
+
+    try {
+      await login(email, password);
+      navigate('/'); 
+    } catch (err) {
+      const errorMessage = err.response?.data?.msg || 'Error al iniciar sesión. Intente de nuevo.';
+      setError(errorMessage);
     }
   };
 
   return (
-    <Container className="container d-flex flex-column align-items-center justify-content-center min-vh-60">
+    <Container className="d-flex flex-column align-items-center justify-content-center mt-5">
       <h1>Iniciar Sesión</h1>
-      <form className="m-4 p-4" onSubmit={handleSubmit}>
-        {error && <p className="text-danger">{error}</p>}
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Correo Electrónico</label>
-          <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" id="email" required />
+      <Form className="m-4 p-4 border rounded shadow-sm" style={{ width: '100%', maxWidth: '400px' }} onSubmit={handleSubmit}>
+        {error && <Alert variant="danger">{error}</Alert>}
+        
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Correo Electrónico</Form.Label>
+          <Form.Control 
+            value={email} 
+            onChange={e => setEmail(e.target.value)} 
+            type="email" 
+            placeholder="nombre@ejemplo.com"
+            required 
+          />
+        </Form.Group>
+        
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Contraseña</Form.Label>
+          <Form.Control 
+            value={password} 
+            onChange={e => setPassword(e.target.value)} 
+            type="password"
+            placeholder="Contraseña"
+            required 
+          />
+        </Form.Group>
+        
+        <div className="d-grid">
+            <Button variant="primary" type="submit">
+                Iniciar Sesión
+            </Button>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Contraseña</label>
-          <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="password" required />
-        </div>
-        <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
-      </form>
-        <p>¿No tenés una cuenta? <Link to="/register">Regístrate aquí</Link></p>
+      </Form>
+      <p>¿No tenés una cuenta? <Link to="/register">Regístrate aquí</Link></p>
     </Container>
   );
 };
