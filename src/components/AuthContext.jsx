@@ -1,58 +1,73 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { loginUser, registerUser, logoutUser, getMyProfile, refreshToken } from '../apiService'; 
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); 
+  const [loading, setLoading] = useState(true); 
 
-  // leer del localStorage
+  // useEffect verifica si hay una sesión activa
   useEffect(() => {
-    const savedUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (savedUser) {
-      setUser(savedUser);
-    }
-    setLoading(false);
+    const verifyAuth = async () => {
+      try {
+        const { data } = await refreshToken();
+        localStorage.setItem('accessToken', data.accessToken);
+        
+        const profileResponse = await getMyProfile();
+        setUser(profileResponse.data);
+
+      } catch (error) {
+        console.log('No hay sesión activa.');
+        setUser(null);
+        localStorage.removeItem('accessToken');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    verifyAuth();
   }, []);
 
-  const login = (email, password) => {
-    const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    const foundUser = savedUsers.find(u => u.email === email && u.password === password);
-    if (foundUser) {
-      setUser(foundUser);
-      localStorage.setItem('currentUser', JSON.stringify(foundUser));
-      return true;
+  const login = async (email, password) => {
+    const { data } = await loginUser(email, password);
+    localStorage.setItem('accessToken', data.accessToken);
+    
+    const profileResponse = await getMyProfile();
+    setUser(profileResponse.data);
+  };
+
+  const register = async (email, password) => {
+    await registerUser(email, password);
+    const { data } = await loginUser(email, password);
+    localStorage.setItem('accessToken', data.accessToken);
+  };
+
+  const logout = async () => {
+    try {
+      await logoutUser(); 
+    } catch (error) {
+      console.error("Error al cerrar sesión en el servidor:", error);
+    } finally {
+      setUser(null);
+      localStorage.removeItem('accessToken');
     }
-    return false;
   };
 
-  const register = (email, password) => {
-    const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    const exists = savedUsers.some(u => u.email === email);
-    if (exists) return false;
-    const newUser = { email, password };
-    const updatedUsers = [...savedUsers, newUser];
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-    return true;
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('currentUser');
+  const value = {
+    user,
+    isAuthenticated: !!user,
+    loading,
+    login,
+    logout,
+    register,
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      isAuthenticated: !!user, 
-      loading,
-      login, 
-      logout, 
-      register 
-      }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
