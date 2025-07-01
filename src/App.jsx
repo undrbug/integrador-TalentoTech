@@ -23,26 +23,26 @@ function App() {
       <ProductProvider>
         <CartProvider>
           <Router>
-            <div className="Container">
+            {/* <div className="Container">
               <h3>BienHelada.com.ar</h3>
-            </div>
+            </div> */}
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
               {/* <Route path="/deals" element={<Deals />} /> */}
 
               <Route path="/login" element={
-                !localStorage.getItem('token') ? <Login /> : <Navigate to="/shop" />
+                !localStorage.getItem('currentUser') ? <Login /> : <Navigate to="/shop" />
               } />
               <Route path="/register" element={
-                !localStorage.getItem('token') ? <Register /> : <Navigate to="/login" />
+                !localStorage.getItem('currentUser') ? <Register /> : <Navigate to="/login" />
               } />
               <Route path="/shop" element={<Shop />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
               <Route path="/add-product" element={
-                  localStorage.getItem('token') ? <ProductAdd /> : <Navigate to="/login" />
+                  localStorage.getItem('currentUser') ? <ProductAdd /> : <Navigate to="/login" />
               } />
               {/* <Route path="/checkout" element={<Checkout />} /> */}
               <Route path="/dashboard" element={
