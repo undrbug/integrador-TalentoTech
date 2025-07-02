@@ -56,5 +56,11 @@
 - Revisar tema del token q no esta implementado (ok)
 
 - Implementaste la interactividad en el Navbar para indicar la sección activa
+
 - implementar las ofertas solo para los clientes logueados
 - implementar rol del usuario
+
+<!-- extra -->
+- Implementar backend con Node.js, Express y mysql para usuarios (ok)
+- Implementar autenticación y autorización de usuarios (ok)
+- Implementar backend con Node.js, Express y mysql para productos )
