@@ -6,14 +6,15 @@ import { useCart } from './CartContext';
 
 const Shop = () => {
     const { carrito, onAddToCart, setCarrito } = useCart();
-    const [isCartVisible, setIsCartVisible] = useState(false);
+    // const [isCartVisible, setIsCartVisible] = useState(false);
+    const [showCart, setShowCart] = useState(false);
 
     const handleAddToCart = (producto) => {
         setCarrito(prev => [...prev, producto]);
     };
 
     const toggleCart = () => {
-        setIsCartVisible(prev => !prev);
+        setShowCart(true);
     };
 
     return (
@@ -21,9 +22,10 @@ const Shop = () => {
         <div className='mini-cart'>
              <MiniCart count={carrito.length} toggleCart={toggleCart} />
         </div>
-            {isCartVisible && carrito.length > 0 && (
-                <Cart items={carrito} setItems={setCarrito} onAddToCart={handleAddToCart} />
-            )}
+            <Cart 
+                show={showCart} 
+                onHide={() => setShowCart(false)} 
+            />
             <CardComponent onAddToCart={handleAddToCart} />
         </>
     );
