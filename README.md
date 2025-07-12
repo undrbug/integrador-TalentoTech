@@ -19,7 +19,7 @@
 
 ## Requerimiento #2: Conectar la aplicación a una API que provea información sobre los productos.
 
-- Integración con una API (ok)
+- Integración con una API (extra uso de api de productos propia) (ok)
 
 - Estado de carga y errores (ok)
 
@@ -51,7 +51,7 @@
 
 - Rutas Protegidas (ok)
 
-- implementar context API para login y logout (ok)
+- implementar context API para login y logout (extra uso de api de usuarios propia) (ok)
 
 - Revisar tema del token q no esta implementado (ok)
 
@@ -63,4 +63,4 @@
 <!-- extra -->
 - Implementar backend con Node.js, Express y mysql para usuarios (ok)
 - Implementar autenticación y autorización de usuarios (ok)
-- Implementar backend con Node.js, Express y mysql para productos )
+- Implementar backend con Node.js, Express y mysql para productos (ok)
