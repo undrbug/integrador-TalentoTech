@@ -14,6 +14,7 @@ import ProductDetail from './components/ProductDetail.jsx';
 import { AuthProvider } from './components/AuthContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import ProductAdd from './components/ProductAdd.jsx';
+import Deals from './components/Deals.jsx';
 import './App.css'
 
 function App() {
@@ -29,22 +30,24 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* <Route path="/deals" element={<Deals />} /> */}
-
-              <Route path="/login" element={
-                !localStorage.getItem('currentUser') ? <Login /> : <Navigate to="/shop" />
-              } />
-              <Route path="/register" element={
-                !localStorage.getItem('currentUser') ? <Register /> : <Navigate to="/login" />
-              } />
               <Route path="/shop" element={<Shop />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
-              <Route path="/add-product" element={
-                  localStorage.getItem('currentUser') ? <ProductAdd /> : <Navigate to="/login" />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
+              {/* Rutas protegidas */}
+              <Route path="/deals" element={
+                <PrivateRoute>
+                  <Deals />
+                </PrivateRoute>
               } />
-              {/* <Route path="/checkout" element={<Checkout />} /> */}
+              <Route path="/add-product" element={
+                <PrivateRoute>
+                  <ProductAdd />
+                </PrivateRoute>
+              } />
               <Route path="/dashboard" element={
                 <PrivateRoute>
                   <Dashboard />
