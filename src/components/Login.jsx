@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 
 const Login = () => {
-  const { login } = useAuth();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
