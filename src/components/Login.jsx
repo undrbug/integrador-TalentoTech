@@ -4,7 +4,7 @@ import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 
 const Login = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
