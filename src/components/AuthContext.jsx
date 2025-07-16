@@ -32,18 +32,39 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
+  try {
     const { data } = await loginUser(email, password);
     localStorage.setItem('accessToken', data.accessToken);
     
     const profileResponse = await getMyProfile();
     setUser(profileResponse.data);
-  };
+    return { success: true };
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    // return {
+    //   success: false,
+    //   message: error.response?.data?.msg || 'Error al iniciar sesión',
+    // };
+    throw error; 
+  }
+};
 
-  const register = async (email, password) => {
-    await registerUser(email, password);
-    const { data } = await loginUser(email, password);
-    localStorage.setItem('accessToken', data.accessToken);
-  };
+
+const register = async (name, email, password) => {
+  try {
+    await registerUser(name, email, password);
+    return { success: true };
+  } catch (error) {
+    if (error.response?.data?.errors) {
+      return { success: false, fieldErrors: error.response.data.errors };
+    }
+    if (error.response?.data?.msg) {
+      return { success: false, message: error.response.data.msg };
+    }
+    return { success: false, message: 'Error al registrar usuario' };
+  }
+};
+
 
   const logout = async () => {
     try {
@@ -56,15 +77,35 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const value = {
-    user,
-    isAuthenticated: !!user,
-    setUser,
-    loading,
-    login,
-    logout,
-    register,
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      const success = await register(name, email, password);
+      if (success) {
+        navigate('/login');
+      } else {
+        setError('El usuario ya existe');
+      }
+    } catch (err) {
+      setError(err.message || 'Error al registrar usuario');
+    }
   };
+
+  const value = {
+  isAuthenticated: !!user,
+  isAdmin: user?.role === 'admin',
+  user,
+  setUser,
+  loading,
+  login,
+  logout,
+  register,
+};
+
 
   return (
     <AuthContext.Provider value={value}>
