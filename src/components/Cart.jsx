@@ -1,6 +1,7 @@
 import { Modal, Table, Button, Badge } from 'react-bootstrap';
 import { useCart } from './CartContext';
 import { FaTrash, FaShoppingCart } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const Cart = ({ show, onHide }) => {
     const { carrito, setCarrito } = useCart();
@@ -17,9 +18,14 @@ const Cart = ({ show, onHide }) => {
     const clearCart = () => setCarrito([]);
 
     const handlePurchase = () => {
-        alert(`Compra realizada por un total de $${total.toFixed(2)}`);
+        toast.success(`Compra realizada por un total de $${total.toFixed(2)}`, {
+                position: "bottom-center",
+                autoClose: 2000,
+                pauseOnHover: false,
+                theme: "light"
+              });
         clearCart();
-        onHide(); // Cerrar el modal después de la compra
+        onHide(); 
     };
 
     return (
