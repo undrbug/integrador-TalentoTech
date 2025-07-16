@@ -4,8 +4,13 @@ Es un proyecto Full-Stack de una tienda online de bebidas, desarrollado como par
 
 ## 🚀 Demos en Vivo
 
-*   **Frontend (Vercel):** [https://talento-tech.vercel.app/](https://talento-tech.vercel.app/)
+*   **Frontend (Vercel):** [https://integrador-ttech.vercel.app/](https://integrador-ttech.vercel.app/)
 *   **Backend (Render):** [https://api-auth-secure.onrender.com/](https://api-auth-secure.onrender.com/)
+*   user admin: hernan@hernan.com
+*   pass admin: BienH3lad
+
+*   user cliente: paola@paola.com
+*   pass cliente: BienH3lad
 
 ---
 
@@ -124,3 +129,4 @@ La aplicación estará disponible en `http://localhost:5173` (o el puerto que in
 ---
 
 ## 🔮 Mejoras a Futuro
+Ganar el Quini6
