@@ -6,7 +6,6 @@ import { useCart } from './CartContext';
 
 const Shop = () => {
     const { carrito, onAddToCart, setCarrito } = useCart();
-    // const [isCartVisible, setIsCartVisible] = useState(false);
     const [showCart, setShowCart] = useState(false);
 
     const handleAddToCart = (producto) => {
