@@ -13,12 +13,17 @@ import { CartProvider } from './components/CartContext.jsx';
 import ProductDetail from './components/ProductDetail.jsx';
 import { AuthProvider } from './components/AuthContext.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
-import ProductAdd from './components/ProductAdd.jsx';
 import Deals from './components/Deals.jsx';
+import { useAuth } from './components/AuthContext.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
+import ProductAdd from './components/ProductAdd.jsx';
+// import ProductList from './components/ProductList';
+// import ProductEdit from './components/ProductEdit';
+
 import './App.css'
 
 function App() {
-
+  const { user } = useAuth();
   return (
     <AuthProvider>
       <ProductProvider>
@@ -43,16 +48,24 @@ function App() {
                   <Deals />
                 </PrivateRoute>
               } />
+
+              {/* <Route path="/products" element={<ProductList />} /> */}
+              {/* <Route path="/products/add" element={<ProductAdd />} /> */}
+              {/* <Route path="/products/edit/:id" element={<ProductEdit />} /> */}
+
               <Route path="/add-product" element={
                 <PrivateRoute>
-                  <ProductAdd />
+                  {user && user.role === 'admin' ? <ProductAdd /> : <Navigate to="/" />}
+                  {/* <ProductAdd /> */}
                 </PrivateRoute>
               } />
               <Route path="/dashboard" element={
-                <PrivateRoute>
+                <AdminRoute>
+                  {/* {user && user.role === 'admin' ? <Dashboard /> : <Navigate to="/" />} */}
                   <Dashboard />
-                </PrivateRoute>
+                </AdminRoute>
               } />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             <Footer />
           </Router>
