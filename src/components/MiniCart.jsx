@@ -5,9 +5,9 @@ const MiniCart = ({ count, toggleCart }) => {
     return (
         <div className="container">
             
-            <Button variant="light" onClick={toggleCart} style={{ position: 'fixed', top: 130, right: 70 }}>
+            <Button variant="light" onClick={toggleCart} style={{ position: 'fixed', top: 130, right: 70, zIndex: 1 }}>
                 <FaShoppingCart size={24} />
-                <Badge bg="danger" pill style={{ position: 'absolute', top: 0, right: 0 }}>
+                <Badge bg="danger" pill style={{ position: 'absolute', top: 1, right: 0 }}>
                     {count}
                 </Badge>
             </Button>
