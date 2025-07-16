@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Modal, Card, Button } from 'react-bootstrap';
+import { Modal, Card, Button, Badge, Row, Col, Spinner } from 'react-bootstrap';
 import { useProductos } from './ProductContext';
 import { useCart } from './CartContext';
+import { toast } from 'react-toastify';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -14,54 +15,96 @@ const ProductDetail = () => {
 
     useEffect(() => {
         if (!loading) {
-            const foundProducto = productos.find((prod) => prod.id === parseInt(id));
-            setProducto(foundProducto);
+            const found = productos.find((prod) => prod.id === parseInt(id));
+            setProducto(found || null);
         }
     }, [loading, productos, id]);
 
     const handleClose = () => {
         setShow(false);
-        navigate('/shop');
+        navigate('/');
     };
 
     if (loading) {
-        return <div>Cargando...</div>;
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+                <Spinner animation="border" variant="primary" />
+                <span className="ms-3">Cargando producto...</span>
+            </div>
+        );
     }
 
     return (
-        <Modal show={show} onHide={handleClose} centered>
-            <Modal.Header closeButton>
-                <Modal.Title>
+        <Modal show={show} onHide={handleClose} centered size="lg">
+            <Modal.Header closeButton className="border-0">
+                <Modal.Title className="text-primary">
                     {producto ? producto.title : 'Producto no encontrado'}
                 </Modal.Title>
             </Modal.Header>
+
             <Modal.Body>
                 {producto ? (
-                    <Card style={{ border: 'none' }}>
-                        <Card.Img className='card-img' variant="top" src={producto.image} />
-                        <Card.Body>
-                            <Card.Text>{producto.description}</Card.Text>
-                            <Card.Text><strong>USD {producto.price}</strong></Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <Row>
+                        <Col md={5}>
+                            <img
+                                src={producto.image || 'https://via.placeholder.com/400x400?text=Sin+imagen'}
+                                alt={producto.title}
+                                className="img-fluid rounded shadow-sm"
+                            />
+                        </Col>
+                        <Col md={7}>
+                            <h5 className="mb-3">{producto.category && <Badge bg="secondary" className="me-2">{producto.category}</Badge>}</h5>
+                            <p className="text-muted">{producto.description}</p>
+
+                            <div className="mb-3">
+                                {producto.on_offer ? (
+                                    <>
+                                        <div className="text-muted text-decoration-line-through">Precio: ${producto.price}</div>
+                                        <h4 className="text-danger fw-bold">Oferta: ${producto.offer_price}</h4>
+                                    </>
+                                ) : (
+                                    <h4 className="fw-bold text-success">Precio: ${producto.price}</h4>
+                                )}
+                            </div>
+
+                            <div className="mb-3">
+                                Stock: {producto.stock > 0
+                                    ? <span className={producto.stock < 5 ? 'text-warning' : 'text-success'}>{producto.stock} unidades</span>
+                                    : <span className="text-danger">Sin stock</span>
+                                }
+                            </div>
+
+                            {producto.rating > 0 && (
+                                <div className="mb-3">
+                                    <small className="text-muted">⭐ {producto.rating} ({producto.rating_count} valoraciones)</small>
+                                </div>
+                            )}
+                        </Col>
+                    </Row>
                 ) : (
-                    <div>
-                        <p>Producto no encontrado...</p>
+                    <div className="text-center">
+                        <p>El producto no fue encontrado.</p>
                     </div>
                 )}
             </Modal.Body>
-            <Modal.Footer>
-                {producto && (
-                    <Button variant="primary" onClick={() => {
-                        onAddToCart(producto);
-                        handleClose();
-                    }}>
-                        Agregar al carrito
-                    </Button>
-                )}
+
+            <Modal.Footer className="border-0 d-flex justify-content-between">
                 <Button variant="secondary" onClick={handleClose}>
                     Volver a la tienda
                 </Button>
+
+                {producto && producto.stock > 0 && (
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            onAddToCart(producto);
+                            toast.success('Producto agregado al carrito');
+                            handleClose();
+                        }}
+                    >
+                        Agregar al carrito
+                    </Button>
+                )}
             </Modal.Footer>
         </Modal>
     );
