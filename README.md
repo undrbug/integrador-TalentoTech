@@ -7,10 +7,10 @@ Es un proyecto Full-Stack de una tienda online de bebidas, desarrollado como par
 *   **Frontend (Vercel):** [https://integrador-ttech.vercel.app/](https://integrador-ttech.vercel.app/)
 *   **Backend (Render):** [https://api-auth-secure.onrender.com/](https://api-auth-secure.onrender.com/)
 *   user admin: hernan@hernan.com
-*   pass admin: BienH3lad
+*   pass admin: BienH3lad@
 
 *   user cliente: paola@paola.com
-*   pass cliente: BienH3lad
+*   pass cliente: BienH3lad@
 
 ---
 
